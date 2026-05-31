@@ -1,9 +1,11 @@
+import 'modern-normalize';
 import css from '../styles/App.module.css';
 import CafeInfo from './CafeInfo.tsx';
 import type { VoteType, Votes } from '../types/votes.ts';
 import { useState } from 'react';
 import VoteOptions from './VoteOptions.tsx';
 import VoteStats from './VoteStats.tsx';
+import Notification from './Notification.tsx';
 
 function App() {
   const [votes, setVotes] = useState<Votes>({
@@ -27,6 +29,9 @@ function App() {
     });
   };
 
+  const totalVotes = votes.good + votes.neutral + votes.bad;
+  const hasVotes = totalVotes > 0;
+
   return (
     <div className={css.app}>
       <CafeInfo />
@@ -35,13 +40,15 @@ function App() {
         onReset={resetVotes}
         canReset={votes.good > 0 || votes.neutral > 0 || votes.bad > 0}
       />
-      <VoteStats
-        votes={votes}
-        totalVotes={votes.good + votes.neutral + votes.bad}
-        positiveRate={
-          (votes.good / (votes.good + votes.neutral + votes.bad)) * 100 || 0
-        }
-      />
+      {!hasVotes ? (
+        <Notification />
+      ) : (
+        <VoteStats
+          votes={votes}
+          totalVotes={totalVotes}
+          positiveRate={(votes.good / totalVotes) * 100 || 0}
+        />
+      )}
     </div>
   );
 }
