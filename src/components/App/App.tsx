@@ -1,11 +1,11 @@
 import 'modern-normalize';
-import css from '../styles/App.module.css';
-import CafeInfo from './CafeInfo.tsx';
-import type { VoteType, Votes } from '../types/votes.ts';
+import css from './App.module.css';
+import CafeInfo from '../CafeInfo/CafeInfo.tsx';
+import type { VoteType, Votes } from '../../types/votes.ts';
 import { useState } from 'react';
-import VoteOptions from './VoteOptions.tsx';
-import VoteStats from './VoteStats.tsx';
-import Notification from './Notification.tsx';
+import VoteOptions from '../VoteOptions/VoteOptions.tsx';
+import VoteStats from '../VoteStats/VoteStats.tsx';
+import Notification from '../Notification/Notification.tsx';
 
 function App() {
   const [votes, setVotes] = useState<Votes>({
